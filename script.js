@@ -53,10 +53,12 @@ const ask=()=>{const[k,q,c]=STEPS[flow.i];return say(q.replace('{n}',flow.d.name
 function ensure(){if(!cur){cur={id:Date.now(),ts:Date.now(),intents:[],msgs:[welcome]};db.convs.push(cur)}}
 async function finish(){const d=flow.d;cur.lead=d;flow=null;
  await say(`Demo booking request recorded\n\nName: ${d.name}\nService: ${d.service}\nWhen: ${d.date}, ${d.time}\nContact: ${d.contact} (${d.method})\nNew patient: ${/^yes/i.test(d.newp)?'Yes':'No'} · Urgency: ${d.urgency}\n\nThis is a portfolio demo. No real appointment was made and no clinic has been notified.`+(/^urgent/i.test(d.urgency)?'\n\nIf this were a real clinic, your request would be flagged as a priority. For real dental emergencies, call your local clinic or emergency number.':''),SUGG)}
+const P2E=s=>s.replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632);
+function validContact(t){t=P2E(t);return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(t)||(/^[+\d\s().\-–]+$/.test(t)&&t.replace(/\D/g,'').length>=7)}
 async function step(text){const k=STEPS[flow.i][0];
  if(/^(cancel|stop|never ?mind)\b/i.test(text)){flow=null;return say('No problem, I have cancelled the booking request. Anything else?',SUGG)}
  if(k=='name'&&text.length<2)return say('Could you tell me your name?');
- if(k=='contact'&&!/@\S+\.\S+|^[+\d][\d\s()\-]{6,}$/.test(text))return say('That does not look like a valid phone number or email. Could you try again?');
+ if(k=='contact'&&!validContact(text))return say('I could not read that as a phone number or email. Please try something like name@email.com or +1 555 123 4567.');
  flow.d[k]=text;flow.i++;flow.i<STEPS.length?await ask():await finish()}
 async function send(text){text=text.trim();if(!text||busy)return;busy=1;
  try{ensure();push('u',text);chips([]);
