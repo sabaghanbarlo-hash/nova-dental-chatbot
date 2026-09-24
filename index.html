@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nova Dental Clinic · AI Assistant Demo</title>
+<meta name="description" content="Portfolio demo: a free, no-API AI customer-service chatbot with booking, lead qualification and an analytics dashboard.">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="top"><div class="brand"><span class="logo">N</span><b>Nova Dental</b><em>Portfolio demo</em></div>
+<nav><button class="tab on" data-view="home">Website</button><button class="tab" data-view="dash">Dashboard</button></nav>
+<button id="theme" aria-label="Toggle light/dark mode">◐</button></header>
+<main>
+<section id="home" class="view">
+<div class="hero"><span class="tag">✦ Powered by AI automation · simulated locally, no API connected</span>
+<h1>Gentle dental care, answered instantly.</h1>
+<p class="lead">Nova Dental Clinic is a fictional business. Try the assistant in the corner: ask about services, hours or pricing, or request a booking and see how leads are qualified.</p>
+<div class="row"><button class="btn" data-open>Chat with Nova</button><button class="btn ghost" data-view="dash">View dashboard</button></div></div>
+<div class="grid">
+<div class="card"><h3>Instant answers</h3><p>A structured knowledge base with fuzzy matching handles varied wording 24/7.</p></div>
+<div class="card"><h3>Booking capture</h3><p>Name, contact, service, date and time are collected and stored in your browser.</p></div>
+<div class="card"><h3>Lead scoring</h3><p>Every conversation is tagged Hot, Warm or General inquiry for fast follow-up.</p></div></div>
+<p class="note"><b>Demo notice:</b> this is a portfolio demonstration. No real appointments are made, no clinic is notified, and no external AI service is used.</p>
+</section>
+<section id="dash" class="view" hidden>
+<div class="row" style="justify-content:space-between;align-items:center"><div><h2>Assistant dashboard</h2><p class="lead" style="margin:0;font-size:14px">Sample data plus anything you create in the chat. Stored only in this browser.</p></div><button class="btn ghost" id="reset">Reset my demo data</button></div>
+<div class="grid" id="stats"></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<div class="card"><h3>Common questions</h3><div id="bars"></div></div>
+<div class="card"><h3>Lead status</h3><div id="split"></div></div></div>
+<div class="card"><h3>Leads</h3><div id="leads"></div></div><br>
+<div class="card"><h3>Appointment requests</h3><div id="books"></div></div><br>
+<div class="card"><h3>Recent conversations</h3><div id="convs"></div></div>
+</section></main>
+
+<button id="fab" aria-label="Open chat" aria-expanded="false"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg></button>
+<section id="chat" role="dialog" aria-label="Nova virtual assistant" hidden>
+<div class="ch"><span class="av">N</span><div class="who"><b>Nova Assistant</b><small>Virtual assistant · Demo</small></div><button id="newc" title="Start new conversation">New chat</button><button id="close" aria-label="Close chat">✕</button></div>
+<div id="msgs" aria-live="polite"></div><div id="chips"></div>
+<form id="f"><input id="in" placeholder="Type your message…" autocomplete="off" maxlength="300" aria-label="Message"><button class="btn">Send</button></form>
+<p class="ft">Powered by AI automation · simulated demo, no real AI API connected. Bookings are not real.</p></section>
+<script src="script.js"></script></body></html>
